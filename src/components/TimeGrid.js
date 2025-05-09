@@ -67,7 +67,7 @@ const TimeGrid = ({ logs, onEdit, onDelete }) => {
           alt="No entries"
           className="empty-illustration"
         />
-        <p className="empty-message">No time slots yet — add your first entry!</p>
+        <p className="empty-message">No time slots yet, add your first entry!</p>
       </div>
     );
   }
