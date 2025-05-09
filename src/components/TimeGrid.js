@@ -34,6 +34,11 @@ const TimeGrid = ({ logs, onEdit, onDelete }) => {
   const sortedDays = Object.keys(logs).sort((a, b) => new Date(a) - new Date(b));
   const today = getCentralDate();
 
+  const totalEntries = sortedDays.reduce(
+    (sum, day) => sum + (logs[day]?.length || 0),
+    0
+  );
+
   const startEditing = (day, index, entry) => {
     setEditing({ day, index });
     setEditForm({ ...entry });
@@ -53,6 +58,19 @@ const TimeGrid = ({ logs, onEdit, onDelete }) => {
   const cancelEdit = () => {
     setEditing(null);
   };
+
+  if (totalEntries === 0) {
+    return (
+      <div className="empty-grid">
+        <img
+          src="/doc.png" // Replace with your own image in the public folder
+          alt="No entries"
+          className="empty-illustration"
+        />
+        <p className="empty-message">No time slots yet — add your first entry!</p>
+      </div>
+    );
+  }
 
   return (
     <div className="grid-container">
