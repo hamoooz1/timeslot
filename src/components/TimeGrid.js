@@ -59,49 +59,54 @@ const TimeGrid = ({ logs, onEdit, onDelete }) => {
       {sortedDays.map((day) => (
         <div key={day} className="day-column">
           <h3 className={day === today ? "today-heading" : "date-heading"}>
-  {day === today ? "Today" : day}
-</h3>
+            {day === today ? "Today" : day}
+          </h3>
 
-          {logs[day].map((entry, idx) => {
-            const duration = calculateDuration(entry.from, entry.to);
-            return (
-              <div key={idx} className="entry-card">
-                {editing?.day === day && editing?.index === idx ? (
-                  <>
-                    <input
-                      type="time"
-                      value={editForm.from}
-                      onChange={(e) => handleEditChange("from", e.target.value)}
-                    />
-                    <input
-                      type="time"
-                      value={editForm.to}
-                      onChange={(e) => handleEditChange("to", e.target.value)}
-                    />
-                    <input
-                      type="text"
-                      value={editForm.description}
-                      onChange={(e) => handleEditChange("description", e.target.value)}
-                      placeholder="What did you do?"
-                    />
-                    <div className="btn-group">
-                      <button onClick={saveEdit}>Save</button>
-                      <button onClick={cancelEdit}>Cancel</button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <strong>{entry.from} - {entry.to} <span className="duration-tag">({duration})</span></strong>
-                    <p>{entry.description}</p>
-                    <div className="btn-group">
-                      <button onClick={() => startEditing(day, idx, entry)}>Edit</button>
-                      <button onClick={() => onDelete(day, idx)}>Delete</button>
-                    </div>
-                  </>
-                )}
-              </div>
-            );
-          })}
+          {[...logs[day]]
+            .sort((a, b) => a.from.localeCompare(b.from))
+            .map((entry, idx) => {
+              const duration = calculateDuration(entry.from, entry.to);
+              return (
+                <div key={idx} className="entry-card">
+                  {editing?.day === day && editing?.index === idx ? (
+                    <>
+                      <input
+                        type="time"
+                        value={editForm.from}
+                        onChange={(e) => handleEditChange("from", e.target.value)}
+                      />
+                      <input
+                        type="time"
+                        value={editForm.to}
+                        onChange={(e) => handleEditChange("to", e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        value={editForm.description}
+                        onChange={(e) => handleEditChange("description", e.target.value)}
+                        placeholder="What did you do?"
+                      />
+                      <div className="btn-group">
+                        <button onClick={saveEdit}>Save</button>
+                        <button onClick={cancelEdit}>Cancel</button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <strong>
+                        {entry.from} - {entry.to}{" "}
+                        <span className="duration-tag">({duration})</span>
+                      </strong>
+                      <p>{entry.description}</p>
+                      <div className="btn-group">
+                        <button onClick={() => startEditing(day, idx, entry)}>Edit</button>
+                        <button onClick={() => onDelete(day, idx)}>Delete</button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              );
+            })}
         </div>
       ))}
     </div>
