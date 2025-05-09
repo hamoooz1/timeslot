@@ -1,0 +1,48 @@
+/* Navbar container */
+.navbar {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  padding: 0 1rem;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-bottom: 1px solid #374151;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(8px);
+}
+
+/* Left section with logo and title */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Logo image styling */
+.logo-image {
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+/* Title styling */
+.navbar-title {
+  color: white;
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Responsive tweaks */
+@media (min-width: 768px) {
+  .logo-image {
+    height: 52px;
+    width: 52px;
+  }
+
+  .navbar-title {
+    font-size: 1.5rem; /* 24px */
+  }
+}
